@@ -1,7 +1,8 @@
 from requests_html import HTMLSession
 from rake_nltk import Rake
 
-
+URL= str(input('Hi there, What is the URL that you want to extract keywords from?\n'))
+file = 'Keywords.txt'
 # Get keywords using rake_nltk and save all the keywords into a txt file called Keywords.txt
 def getKeywords(URL, file):
     def extract_text(URL):
