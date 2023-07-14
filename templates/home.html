@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="height: 2000px">
+    <form action="" method="post">
+        <div style= "position: absolute; right: 50px; top: 30px; size: 150;">
+        <input type="text" id="url" name="url" placeholder="Please enter you URL...">
+        <button type="submit">Submit</button></div>
+    </form>
+
+<p style="font-size: larger; position: absolute; right: 50px; top: 50px;">
+{{Keywords}}
+{{Analysis}}
+</p>
+<textarea rows="22" cols="120" style="font-size: larger; position: absolute; top: 120px;">
+    # Task-Assignment-1
+    Task Assignment - Extracting Keywords and Analyzing Google Trends Data
+    
+    Here are the steps to complete the task:
+    
+    Extracting Keywords:
+    
+    1. Take a provided website URL and analyze its content.
+    Implement a keyword extraction algorithm to identify relevant keywords.
+    Ensure the algorithm considers factors such as search volume and relevance.
+    
+    2. Inputting Keywords to Google Trends:
+    
+    Utilize Google Trends' API or any available libraries to input the extracted keywords programmatically.
+    Retrieve the search interest data for each keyword over a specific period.
+    
+    3. Extracting and Saving Results:
+    
+    Collect the data obtained from Google Trends and organize it in a structured format.
+    Create a PDF file summarizing the extracted results, ensuring it is well-formatted and easy to read.
+    
+</textarea>
+
+<div style= "position: absolute; left: 120; top: 600px;" >
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+<script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"seo","geo":"","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"q=seo&hl=en-US&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+</div>
+</body>
+</html>

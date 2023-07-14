@@ -9,6 +9,6 @@ def convertPDF():
     f = open('Analysis.txt', "r")
     for x in f:
         pdf.cell(200, 10, txt = x, ln = 1, align = 'C')
-    pdf.output("Result.pdf")   
+    pdf.output("Result.pdf")
 
-convertPDF()
+   
