@@ -4,18 +4,18 @@ from rake_nltk import Metric, Rake
 from requests_html import HTMLSession
 from pytrends.request import TrendReq
 from flask import Flask, request, render_template
+import pandas as pd
 
 
 #---------Task Assignment - Extracting Keywords and Analyzing Google Trends Data------
-
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    link = 'https://www.baynovation.com/products'
+    link = ''
     Keywords = []
-    Analysis = []
+    Analysis = {}
     if request.method == 'POST':
         url = request.form.get('url')
         link = url
@@ -30,24 +30,16 @@ def home():
         r.extract_keywords_from_text(soup.body.get_text(' ', strip=True))
 
         for rating, keyword in r.get_ranked_phrases_with_scores():
-            if len(Keywords) == 3:
+            if len(Keywords) == 6:
                 break
             if rating > 8:
                 Keywords.append(keyword)
 
-#----------------Get Analysis from Google Trend API--------------
-    
-        pytrend = TrendReq()
-        pytrend.build_payload(kw_list=['Messi'])
-        df = pytrend.interest_by_region()
-        Analysis.append(df.head(1))
-
-    
-    return render_template('home.html', Keywords = Keywords, Analysis = Analysis)
+    return render_template('home.html', Keywords = Keywords)
 
 
     
-
+#----------------Get Analysis from Google Trend API----------------
 # ----------------Convert the result to a PDF file-----------------
    
     

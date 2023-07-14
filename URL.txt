@@ -1,2 +1,139 @@
 https://www.baynovation.com/products
 
+  pytrends = TrendReq(hl='en-US')
+        kw_list = Keywords
+        cat = '' #people&society
+        timeframes = ['today 5-y', 'today 12-m', 'today 3-m', 'today 1-m']
+        geo = '' #worldwide
+        gprop = '' #websearch
+
+
+        pytrends.build_payload(kw_list, cat, timeframes[0], geo, gprop)
+        regiondf = pytrends.interest_by_region()
+
+import bs4, requests
+from rake_nltk import Rake
+from rake_nltk import Metric, Rake
+from requests_html import HTMLSession
+from pytrends.request import TrendReq
+from flask import Flask, request, render_template
+import pandas as pd
+
+
+#---------Task Assignment - Extracting Keywords and Analyzing Google Trends Data------
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    link = ''
+    Keywords = []
+    Analysis = {}
+    if request.method == 'POST':
+        url = request.form.get('url')
+        link = url
+        
+        response = requests.get(link,headers={'User-Agent': 'Mozilla/5.0'})
+        soup = bs4.BeautifulSoup(response.text,'lxml')
+        r = Rake(language='english',
+             ranking_metric=Metric.WORD_DEGREE, 
+             include_repeated_phrases=False,
+             min_length=2, max_length=4)
+
+        r.extract_keywords_from_text(soup.body.get_text(' ', strip=True))
+
+        for rating, keyword in r.get_ranked_phrases_with_scores():
+            if len(Keywords) == 6:
+                break
+            if rating > 8:
+                Keywords.append(keyword)
+
+    return render_template('home.html', Keywords = Keywords)
+
+
+    
+#----------------Get Analysis from Google Trend API----------------
+# ----------------Convert the result to a PDF file-----------------
+   
+    
+        
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+           background-image: url('/static/background.jpg');
+           background-repeat: no-repeat;
+           background-size: auto;
+           background-size: 1600px 2500px;
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="height: 2500px">
+
+    <img src="/static/logo.jpeg" alt="Baynovation Logo" 
+        style="position: absolute; left: 30px; top: 25px; font-size: medium; border-radius: 100%;">
+
+
+    <form action="" method="post">
+        <div style= "position: absolute; right: 50px; top: 30px; size: 150;">
+        <input type="text" id="url" name="url" size="50" style="block-size: 30px;" placeholder="Please enter you URL...">
+        <button type="submit" style="font-size: x-large; position: absolute; right: 20px; top: 40px; size: 130;">Submit</button></div>
+    </form>
+<textarea rows="5" cols="90" style="font-size: larger; position: absolute; right: 50px; top: 120px;">
+Extracted Keywords: {{Keywords}}</textarea>
+
+<textarea rows="22" cols="120" style="font-size: larger; position: absolute; left: 150px; top: 250px;">
+    # Task-Assignment-1 - hxu586
+    Task Assignment - Extracting Keywords and Analyzing Google Trends Data
+    
+    Here are the steps to complete the task:
+    
+    Extracting Keywords:
+    
+    1. Take a provided website URL and analyze its content.
+    Implement a keyword extraction algorithm to identify relevant keywords.
+    Ensure the algorithm considers factors such as search volume and relevance.
+    
+    2. Inputting Keywords to Google Trends:
+    
+    Utilize Google Trends' API or any available libraries to input the extracted keywords programmatically.
+    Retrieve the search interest data for each keyword over a specific period.
+    
+    3. Extracting and Saving Results:
+    
+    Collect the data obtained from Google Trends and organize it in a structured format.
+    Create a PDF file summarizing the extracted results, ensuring it is well-formatted and easy to read.
+    
+</textarea>
+
+<div style= "position: absolute; left: 147px; top: 750px;  width:500px; height:400px">
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+<script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"q=seo&hl=en-US&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+</div>
+
+<div style= "position: absolute; right: 123px; top: 750px; width:500px; height:400px"  >
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+<script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_QUERIES", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=Messi&hl=en-US","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+</div>
+
+<div style= "position: absolute; left: 147px; top: 1300px; width:500px; height:400px" >
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+<script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"q=seo&hl=en-US&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+</div>
+
+<div style= "position: absolute; left: 147px; top: 1800px; width:500px; height:100px" >
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+<script type="text/javascript"> trends.embed.renderExploreWidget("GEO_MAP", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=Messi&hl=en-US","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+</div>
+
+
+</body>
+</html>
