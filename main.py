@@ -3,8 +3,8 @@ from rake_nltk import Rake
 from rake_nltk import Metric, Rake
 from requests_html import HTMLSession
 from pytrends.request import TrendReq
-from flask import Flask, request, render_template
-import pandas as pd
+from flask import Flask, request, render_template, Response
+import pdfkit
 
 
 #---------Task Assignment - Extracting Keywords and Analyzing Google Trends Data------
@@ -13,9 +13,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+
     link = ''
     Keywords = []
-    Analysis = {}
     if request.method == 'POST':
         url = request.form.get('url')
         link = url
@@ -35,12 +35,19 @@ def home():
             if rating > 8:
                 Keywords.append(keyword)
 
+        
     return render_template('home.html', Keywords = Keywords)
 
 
-    
-#----------------Get Analysis from Google Trend API----------------
-# ----------------Convert the result to a PDF file-----------------
+
+
+
+
+
+
+
+
+
    
     
         
