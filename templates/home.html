@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body style="height: 2500px">
+<body style="height: 2500px; width: 1600px;">
 
     <img src="/static/logo.jpeg" alt="Baynovation Logo" 
         style="position: absolute; left: 30px; top: 25px; font-size: medium; border-radius: 100%;">
@@ -53,26 +53,30 @@ Extracted Keywords: {{Keywords}}</textarea>
     
 </textarea>
 
+{{kw}}
+
 <div style= "position: absolute; left: 147px; top: 750px;  width:500px; height:400px">
-<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-<script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"q=seo&hl=en-US&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+    <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"SEO","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=SEO&hl=en","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
 </div>
 
 <div style= "position: absolute; right: 123px; top: 750px; width:500px; height:400px"  >
-<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-<script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_QUERIES", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=Messi&hl=en-US","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+    <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_QUERIES", {"comparisonItem":[{"keyword":"SEO","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=SEO&hl=en-US","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
 </div>
 
-<div style= "position: absolute; left: 147px; top: 1300px; width:500px; height:400px" >
-<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-<script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"q=seo&hl=en-US&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+<div style= "position: absolute; left: 147px; top: 1300px; width:500px; height: max-content;" >
+    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+    <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"SEO", "geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"q=SEO&hl=en-US&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
 </div>
 
-<div style= "position: absolute; left: 147px; top: 1800px; width:500px; height:100px" >
-<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-<script type="text/javascript"> trends.embed.renderExploreWidget("GEO_MAP", {"comparisonItem":[{"keyword":"Messi","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=Messi&hl=en-US","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+<div style= "position: absolute; right: 123px; top: 1300px; width:500px; height:800px" >
+    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
+    <script type="text/javascript"> trends.embed.renderExploreWidget("GEO_MAP", {"comparisonItem":[{"keyword":"SEO","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=SEO&hl=en","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
 </div>
 
+<button style= "position: absolute; right: 500px; top: 20px;" >
+<a href="http://localhost:5000/convert">Convert to PDF</a></button>
 
 </body>
 </html>

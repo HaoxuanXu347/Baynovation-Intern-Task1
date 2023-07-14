@@ -15,9 +15,10 @@ app = Flask(__name__)
 def home():
 
     link = ''
-    Keywords = []
+    Keywords = [] # The extracted Keywords from the given website
+    searchWord = "" # The keyword that is going to be searched in Google Trend
     if request.method == 'POST':
-        url = request.form.get('url')
+        url = request.form.get('url') # The URL given by the user
         link = url
         
         response = requests.get(link,headers={'User-Agent': 'Mozilla/5.0'})
@@ -29,14 +30,15 @@ def home():
 
         r.extract_keywords_from_text(soup.body.get_text(' ', strip=True))
 
+        # Extract at maximum of 6 keywords
         for rating, keyword in r.get_ranked_phrases_with_scores():
             if len(Keywords) == 6:
                 break
             if rating > 8:
                 Keywords.append(keyword)
+        searchWord = Keywords[0]
 
-        
-    return render_template('home.html', Keywords = Keywords)
+    return render_template('home.html', SW = searchWord, Keywords = Keywords)
 
 
 
