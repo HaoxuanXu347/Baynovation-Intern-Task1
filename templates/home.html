@@ -21,47 +21,70 @@
     <img src="/static/logo.jpeg" alt="Baynovation Logo" 
         style="position: absolute; left: 30px; top: 25px; font-size: medium; border-radius: 100%;">
 
-
     <form action="" method="post">
-        <div style= "position: absolute; right: 50px; top: 30px; size: 150;">
-        <input type="text" id="url" name="url" size="50" style="block-size: 30px;" placeholder="Please enter you URL...">
-        <button type="submit" style="font-size: x-large; position: absolute; right: 20px; top: 40px; size: 130;">Submit</button></div>
+        <div style="position: absolute; right: 50px; top: 30px; size: 150;">
+            <input type="text" id="url" name="url" size="50" style="block-size: 30px;" placeholder="Please enter your URL...">
+            <button type="submit" style="font-size: x-large; position: absolute; right: 20px; top: 40px; size: 130;">Submit</button>
+        </div>
     </form>
 
-<textarea rows="5" cols="90" style="font-size: larger; position: absolute; right: 50px; top: 120px;">
-Extracted Keywords: {{Keywords}}
-</textarea>
+    <textarea rows="5" cols="90" style="font-size: larger; position: absolute; right: 50px; top: 120px;">
+        Extracted Keywords: {{ keywords }}
+    </textarea>
 
-<textarea rows="22" cols="120" style="font-size: larger; position: absolute; left: 150px; top: 250px;">
-    # Task-Assignment-1 - hxu586
-    Task Assignment - Extracting Keywords and Analyzing Google Trends Data
-    
-    Here are the steps to complete the task:
-    
-    Extracting Keywords:
-    
-    1. Take a provided website URL and analyze its content.
-    Implement a keyword extraction algorithm to identify relevant keywords.
-    Ensure the algorithm considers factors such as search volume and relevance.
-    
-    2. Inputting Keywords to Google Trends:
-    
-    Utilize Google Trends' API or any available libraries to input the extracted keywords programmatically.
-    Retrieve the search interest data for each keyword over a specific period.
-    
-    3. Extracting and Saving Results:
-    
-    Collect the data obtained from Google Trends and organize it in a structured format.
-    Create a PDF file summarizing the extracted results, ensuring it is well-formatted and easy to read.
-    
-</textarea>
+    <textarea rows="22" cols="120" style="font-size: larger; position: absolute; left: 150px; top: 250px;">
+        # Task-Assignment-1 - hxu586
+        Task Assignment - Extracting Keywords and Analyzing Google Trends Data
 
+        Here are the steps to complete the task:
 
+        Extracting Keywords:
 
+        1. Take a provided website URL and analyze its content.
+        Implement a keyword extraction algorithm to identify relevant keywords.
+        Ensure the algorithm considers factors such as search volume and relevance.
 
-<button style= "position: absolute; right: 500px; top: 20px;" >
-<a href="http://localhost:5000/convert">Convert to PDF</a></button>
+        2. Inputting Keywords to Google Trends:
 
+        Utilize Google Trends' API or any available libraries to input the extracted keywords programmatically.
+        Retrieve the search interest data for each keyword over a specific period.
+
+        3. Extracting and Saving Results:
+
+        Collect the data obtained from Google Trends and organize it in a structured format.
+        Create a PDF file summarizing the extracted results, ensuring it is well-formatted and easy to read.
+    </textarea>
+
+    {% if trends_data is not none and not trends_data.empty %}
+    <!-- Display the related image if available -->
+    {% if related_image %}
+    <div style="position: absolute; left: 650px; top: 800px;">
+        <img src="{{ related_image }}" alt="{{ keywords[0] }} Related Image" style="width: 200px; height: 200px;">
+    </div>
+    {% endif %}
+
+    <table style="position: absolute; left: 150px; top: 800px; font-size: larger;">
+        <tr>
+            <th>Date</th>
+            <th>{{ keywords[0] }} Search Interest</th>
+        </tr>
+        {% for index, row in trends_data.iterrows() %}
+        <tr>
+            <td>{{ row.name.strftime('%Y-%m-%d') }}</td>
+            <td>{{ row[keywords[0]] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if message %}
+    <p style="position: absolute; left: 150px; top: 800px; font-size: larger; color: red;">{{ message }}</p>
+    {% endif %}
+
+    <button style="position: absolute; right: 500px; top: 20px;">
+        <a href="http://localhost:5000/convert">Convert to PDF</a>
+    </button>
 
 </body>
 </html>
+

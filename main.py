@@ -1,74 +1,77 @@
-import bs4, requests
-from rake_nltk import Rake
-from rake_nltk import Metric, Rake
-from requests_html import HTMLSession
+import bs4
+import requests
+from rake_nltk import Rake, Metric
 from pytrends.request import TrendReq
-from flask import Flask, request, render_template, Response, jsonify
-import pdfkit
-import pandas as pd
-import pytrends
-import time
-import base64
-from io import BytesIO
-
-#---------Task Assignment - Extracting Keywords and Analyzing Google Trends Data------
+from flask import Flask, request, render_template
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
-def home():
-
-    link = ''
-    Keywords = [] # The extracted Keywords from the given website
-    if request.method == 'POST':
-        url = request.form.get('url') # The URL given by the user
-        link = url
-        
-        response = requests.get(link,headers={'User-Agent': 'Mozilla/5.0'})
-        soup = bs4.BeautifulSoup(response.text,'lxml')
-        r = Rake(language='english',
+def extract_keywords(url):
+    Keywords = [] # The extracted Keywords from the given website 
+    response = requests.get(url,headers={'User-Agent': 'Mozilla/5.0'})
+    soup = bs4.BeautifulSoup(response.text,'lxml')
+    r = Rake(language='english',
              ranking_metric=Metric.WORD_DEGREE, 
              include_repeated_phrases=False,
-             min_length=2, max_length=4)
+             min_length=1, max_length=3)
 
-        r.extract_keywords_from_text(soup.body.get_text(' ', strip=True))
+    r.extract_keywords_from_text(soup.body.get_text(' ', strip=True))
 
         # Extract at maximum of 6 keywords
-        for rating, keyword in r.get_ranked_phrases_with_scores():
-            if len(Keywords) == 3:
-                break
-            if rating > 8:
-                Keywords.append(keyword)  
+    for rating, keyword in r.get_ranked_phrases_with_scores():
+        if len(Keywords) == 3:
+            break
+        if rating > 8:
+            Keywords.append(keyword) 
+    return Keywords
 
-    #-----------------Get Google Trend Data---------------#
-        requests_args = {
-            'headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
-            }
-        }
-        pytrend = TrendReq(requests_args=requests_args)
-        DATE_INTERVAL='2020-01-01 2020-05-01'
+def fetch_google_trends_data(keyword):
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+    def get_google_trends_data_with_retry():
+        pytrends = TrendReq(hl='en-US', tz=360)  # Create a pytrends object
 
-        try:
-            pytrend.build_payload(kw_list={Keywords[0]}, timeframe=DATE_INTERVAL, geo='US')
-            trends_data = pytrend.interest_over_time()
-            trends_data.to_dict()
-            time.sleep(2)    
+        # Get the interest over time data for the provided keyword
+        pytrends.build_payload([keyword], cat=0, timeframe='today 1-m', geo='US', gprop='')
 
-            return render_template('home.html', Keywords = Keywords, trends_data = trends_data)
-        except requests.Timeout as err:
-            print({"message": err.message}) 
-                
-    return render_template('home.html', Keywords = Keywords)
+        # Get the interest over time data as a Pandas DataFrame
+        trends_data = pytrends.interest_over_time()
 
+        return trends_data
 
+    try:
+        return get_google_trends_data_with_retry()
+    except Exception as e:
+        print(f"Error fetching Google Trends data: {e}")
+        return None
 
+def get_related_images(keyword):
+    pytrends = TrendReq(hl='en-US', tz=360)  # Create a pytrends object
 
+    # Get related queries (topics) for the keyword
+    pytrends.build_payload([keyword], cat=0, timeframe='today 1-m', geo='US', gprop='')
+    related_queries = pytrends.related_queries()
 
+    # Get the top related image for the keyword
+    related_image = related_queries[keyword]['top']['image_url']
+    return related_image
 
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    keywords = []
+    trends_data = None
+    related_image = None
+    message = None
 
+    if request.method == 'POST':
+        url = request.form.get('url')
+        keywords = extract_keywords(url)
 
+        if keywords:
+            trends_data = fetch_google_trends_data(keywords[0])
+            if trends_data is None or trends_data.empty:
+                message = "No Google Trends data available for the entered keyword."
+            else:
+                related_image = get_related_images(keywords[0])
 
-
-
-
+    return render_template('home.html', keywords=keywords, trends_data=trends_data, related_image=related_image, message=message)
