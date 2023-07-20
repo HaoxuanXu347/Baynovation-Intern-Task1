@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
 <body style="height: 2500px; width: 1600px;">
 
@@ -26,8 +27,10 @@
         <input type="text" id="url" name="url" size="50" style="block-size: 30px;" placeholder="Please enter you URL...">
         <button type="submit" style="font-size: x-large; position: absolute; right: 20px; top: 40px; size: 130;">Submit</button></div>
     </form>
+
 <textarea rows="5" cols="90" style="font-size: larger; position: absolute; right: 50px; top: 120px;">
-Extracted Keywords: {{Keywords}}</textarea>
+Extracted Keywords: {{Keywords}}
+</textarea>
 
 <textarea rows="22" cols="120" style="font-size: larger; position: absolute; left: 150px; top: 250px;">
     # Task-Assignment-1 - hxu586
@@ -53,30 +56,12 @@ Extracted Keywords: {{Keywords}}</textarea>
     
 </textarea>
 
-{{kw}}
 
-<div style= "position: absolute; left: 147px; top: 750px;  width:500px; height:400px">
-    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-    <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"SEO","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=SEO&hl=en","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
-</div>
 
-<div style= "position: absolute; right: 123px; top: 750px; width:500px; height:400px"  >
-    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-    <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_QUERIES", {"comparisonItem":[{"keyword":"SEO","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=SEO&hl=en-US","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
-</div>
-
-<div style= "position: absolute; left: 147px; top: 1300px; width:500px; height: max-content;" >
-    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-    <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"SEO", "geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"q=SEO&hl=en-US&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
-</div>
-
-<div style= "position: absolute; right: 123px; top: 1300px; width:500px; height:800px" >
-    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3349_RC01/embed_loader.js"></script> 
-    <script type="text/javascript"> trends.embed.renderExploreWidget("GEO_MAP", {"comparisonItem":[{"keyword":"SEO","geo":"US","time":"today 3-m"}],"category":0,"property":""}, {"exploreQuery":"date=today%203-m&geo=US&q=SEO&hl=en","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
-</div>
 
 <button style= "position: absolute; right: 500px; top: 20px;" >
 <a href="http://localhost:5000/convert">Convert to PDF</a></button>
+
 
 </body>
 </html>
