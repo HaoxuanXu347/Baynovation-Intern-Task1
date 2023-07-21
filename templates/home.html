@@ -3,10 +3,10 @@
 <head>
     <style>
         body {
-           background-image: url('/static/background.jpg');
-           background-repeat: no-repeat;
-           background-size: auto;
-           background-size: 1600px 2500px;
+            background-image: url('/static/background.jpg');
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-size: 1600px 2500px;
         }
     </style>
     
@@ -21,7 +21,7 @@
     <img src="/static/logo.jpeg" alt="Baynovation Logo" 
         style="position: absolute; left: 30px; top: 25px; font-size: medium; border-radius: 100%;">
 
-    <form action="" method="post">
+    <form action="/" method="post">
         <div style="position: absolute; right: 50px; top: 30px; size: 150;">
             <input type="text" id="url" name="url" size="50" style="block-size: 30px;" placeholder="Please enter your URL...">
             <button type="submit" style="font-size: x-large; position: absolute; right: 20px; top: 40px; size: 130;">Submit</button>
@@ -81,10 +81,5 @@
     <p style="position: absolute; left: 150px; top: 800px; font-size: larger; color: red;">{{ message }}</p>
     {% endif %}
 
-    <button style="position: absolute; right: 500px; top: 20px;">
-        <a href="http://localhost:5000/convert">Convert to PDF</a>
-    </button>
-
 </body>
 </html>
-
