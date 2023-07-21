@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Baynovation Intern Task 1</title>
 
 </head>
 <body style="height: 2500px; width: 1600px;">
@@ -56,25 +56,15 @@
     </textarea>
 
     {% if trends_data is not none and not trends_data.empty %}
-    <!-- Display the related image if available -->
-    {% if related_image %}
-    <div style="position: absolute; left: 650px; top: 800px;">
-        <img src="{{ related_image }}" alt="{{ keywords[0] }} Related Image" style="width: 200px; height: 200px;">
-    </div>
-    {% endif %}
+    <textarea rows="50" cols="60" style="position: absolute; left: 150px; top: 800px; font-size: larger;">
+        Keyword: {{ keywords[0] }} - Interests_over_time
+        {{trends_data}}
+    </textarea>
 
-    <table style="position: absolute; left: 150px; top: 800px; font-size: larger;">
-        <tr>
-            <th>Date</th>
-            <th>{{ keywords[0] }} Search Interest</th>
-        </tr>
-        {% for index, row in trends_data.iterrows() %}
-        <tr>
-            <td>{{ row.name.strftime('%Y-%m-%d') }}</td>
-            <td>{{ row[keywords[0]] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <textarea rows="50" cols="60" style="position: absolute; right: 150px; top: 800px; font-size: larger;">
+        Keyword: {{ keywords[0] }} - Related_Topics
+        {{related_topics_data}}
+    </textarea>
     {% endif %}
 
     {% if message %}
